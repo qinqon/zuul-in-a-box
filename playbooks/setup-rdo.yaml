@@ -8,3 +8,9 @@
       port_range_min: 19885
       port_range_max: 19885
       remote_ip_prefix: 0.0.0.0/0
+  - os_image_facts:
+      cloud: rdo-cloud
+      image: openstack-infra-centos-7
+  - when: openstack_image is defined
+    debug:
+      msg: "There is an image"
