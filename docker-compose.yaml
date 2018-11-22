@@ -65,6 +65,10 @@ services:
     depends_on:
       - scheduler
     image: zuul/zuul-executor
+    sysctls:
+      net.ipv4.tcp_keepalive_time: 600
+      net.ipv4.tcp_keepalive_intvl: 75
+      net.ipv4.tcp_keepalive_probes: 9
     volumes:
       - "./etc_zuul/:/etc/zuul/:z"
       - "./playbooks/:/var/playbooks/:z"
@@ -73,10 +77,15 @@ services:
       - "./projects:/projects/:z"
 
   launcher:
+    privileged: true
     command: "nodepool-launcher -d"
     depends_on:
       - zk
     image: zuul/nodepool-launcher
+    sysctls:
+      net.ipv4.tcp_keepalive_time: 600
+      net.ipv4.tcp_keepalive_intvl: 75
+      net.ipv4.tcp_keepalive_probes: 9
     volumes:
       - "./etc_nodepool/:/etc/nodepool/:z"
       - "~/.config/openstack/:/etc/openstack/:z"
