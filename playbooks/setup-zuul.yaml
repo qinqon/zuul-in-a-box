@@ -1,16 +1,27 @@
 - hosts: localhost
-  gather_facts: false
+  gather_subset: pkg_mgr
   tasks:
   - os_security_group_rule:
       cloud: rdo-cloud
       security_group: default
       protocol: tcp
-      port_range_min: 19885
-      port_range_max: 19885
+      port_range_min: "{{ item }}"
+      port_range_max: "{{ item }}"
       remote_ip_prefix: 0.0.0.0/0
+    with_items:
+      - 19885
+      - 22
   - os_image_facts:
       cloud: rdo-cloud
       image: openstack-infra-centos-7
   - when: openstack_image is defined
     debug:
       msg: "There is an image"
+
+  - name: Start up zuul and friends
+    docker_service:
+      project_src: "{{ playbook_dir }}/../"
+      state: present
+      build: yes
+
+
