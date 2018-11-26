@@ -21,7 +21,7 @@
 
   - name: Wait for zuul
     uri:
-      url: http://localhost:9000/api/info
+      url: http://localhost:9000/api/tenant/example-tenant/status
       method: GET
       return_content: true
       status_code: 200
@@ -29,5 +29,5 @@
     register: result
     retries: 30
     delay: 10
-    until: result.status == 200
+    until: result.json.status == 200
     changed_when: false
