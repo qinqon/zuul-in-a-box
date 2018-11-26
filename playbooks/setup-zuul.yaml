@@ -1,6 +1,7 @@
 - hosts: localhost
   gather_subset: pkg_mgr
   tasks:
+
   - os_security_group_rule:
       cloud: rdo-cloud
       security_group: default
@@ -11,12 +12,6 @@
     with_items:
       - 19885
       - 22
-  - os_image_facts:
-      cloud: rdo-cloud
-      image: openstack-infra-centos-7
-  - when: openstack_image is defined
-    debug:
-      msg: "There is an image"
 
   - name: Start up zuul and friends
     docker_service:
@@ -24,4 +19,15 @@
       state: present
       build: yes
 
-
+  - name: Wait for zuul
+    uri:
+      url: http://localhost:9000/api/info
+      method: GET
+      return_content: true
+      status_code: 200
+      body_format: json
+    register: result
+    retries: 30
+    delay: 10
+    until: result.status == 200
+    changed_when: false
