@@ -1,0 +1,3 @@
+**/etc_nodepool/nodepool.yaml
+**/etc_zuul/main.yaml
+**/etc_zuul/zuul.conf

@@ -7,8 +7,8 @@ labels:
   - name: fedora-28
 
 providers:
-  - name: rdo-cloud
-    cloud: rdo-cloud
+  - name: {{ os_cloud_name }}
+    cloud: {{ os_cloud_name }}
     # NOTE(jpena): this is a workaround for infitite retries, see https://review.openstack.org/584488
     launch-retries: 999999999
     region-name: regionOne
