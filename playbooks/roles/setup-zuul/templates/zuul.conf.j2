@@ -10,10 +10,11 @@ hosts=zk
 [scheduler]
 tenant_config=/etc/zuul/main.yaml
 
-[connection "zuul-ci.org"]
-name=zuul-ci
+[connection "qinqon"]
+name=qinqon
 driver=git
-baseurl=https://git.zuul-ci.org/
+baseurl=https://github.com/qinqon
+
 
 [connection "git.openstack.org"]
 name=git.openstack.org
@@ -21,7 +22,7 @@ driver=gerrit
 server=review.openstack.org
 canonical_hostname=git.openstack.org
 gitweb_url_template=https://git.openstack.org/cgit/{project.name}/commit/?id={sha}
-user={{ os_gerrit_user }}
+user={{ upstream_gerrit_user }}
 sshkey=/var/ssh/id_rsa
 
 [connection "gerrit"]
@@ -33,17 +34,6 @@ user=zuul
 password=secret
 baseurl=http://gerrit:8080
 auth_type=basic
-
-[connection "qinqon"]
-name=qinqon
-driver=git
-baseurl=https://github.com/qinqon
-
-[connection "projects"]
-name=projects
-driver=git
-baseurl=file:///projects/
-poll_delay=5
 
 [connection "mysql"]
 name=mysql
@@ -59,5 +49,5 @@ default_username=zuul
 trusted_rw_paths=/srv/static/logs
 
 [merger]
-git_user_email="{{ os_gerrit_email }}"
-git_user_name="{{ os_gerrit_name }}"
+git_user_email="os-tripleo-ci@redhat.com"
+git_user_name="Openstack Triple CI"

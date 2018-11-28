@@ -1,5 +1,5 @@
 - tenant:
-    name: {{ tenant_name }}
+    name: upstream
     source:
       qinqon:
         config-projects:
@@ -19,7 +19,7 @@
             - nodeset
             - secret
             projects:
-              - openstack-infra/project-config
+            - openstack-infra/project-config
           - exclude:
             - project
             - job
@@ -36,8 +36,3 @@
             - openstack/browbeat
             - openstack/tripleo-ha-utils
             - openstack/tripleo-heat-templates
-      zuul-ci.org:
-        untrusted-projects:
-          - zuul-jobs:
-              include:
-                - job

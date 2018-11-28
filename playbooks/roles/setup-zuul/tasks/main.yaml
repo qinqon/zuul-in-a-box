@@ -40,9 +40,9 @@
     build: true
 
 
-- name: Wait for zuul
+- name: Wait for zuul upstream tenant
   uri:
-    url: "http://localhost:9000/api/tenant/{{ tenant_name }}/status"
+    url: "http://localhost:9000/api/tenant/upstream/status"
     method: GET
     return_content: true
     status_code: 200

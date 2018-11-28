@@ -18,11 +18,11 @@ providers:
     cloud-images:
       - name: centos-7
         config-drive: true
-        image-name: openstack-infra-centos-7
+        image-name: {{ os_centos7_image }}
         username: zuul
       - name: fedora-28
         config-drive: true
-        image-name: fedora-28-0000000035
+        image-name: {{ os_fedora28_image }}
         username: zuul
     pools:
       - name: main
